@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Membership Application - Replica</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --green: #0b9b51;
+            /* main green */
+            --dark-green: #0a7f42;
+            --accent: #f8a623;
+            /* orange */
+            --muted: #f4f9f5;
+            --line: #0b9b51;
+            --text: #0b2f1f;
+            --field-border: #0fb154;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: "Montserrat", Arial, sans-serif;
+            margin: 0;
+            padding: 24px;
+            background: #fff;
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+            border: 6px solid #fff;
+            position: relative;
+            background: white;
+            /* box-shadow: 0 6px 20px rgba(0,0,0,0.04); */
+        }
+
+        /* Top header */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 28px;
+            border-bottom: 6px solid var(--green);
+        }
+
+        .brand {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .logo {
+            width: 86px;
+            height: 86px;
+            border-radius: 8px;
+            /* background:linear-gradient(#0fb154,#0b9b51); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 18px;
+            /* box-shadow:0 2px 6px rgba(11,155,81,0.2); */
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 30px;
+            color: var(--green);
+            letter-spacing: 1px
+        }
+
+        .brand .sub {
+            color: var(--accent);
+            font-weight: 700;
+            margin-top: 2px;
+            font-size: 16px
+        }
+
+        .contact {
+            text-align: right;
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .contact div {
+            margin: 2px 0
+        }
+
+        .contact a {
+            color: inherit;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .contact a:hover {
+            color: var(--green);
+            transform: scale(1.05);
+        }
+
+        .contact img {
+            height: 24px;
+            width: 24px;
+        }
+
+        /* Address bar under header */
+        .address-bar {
+            background: linear-gradient(90deg, var(--green), var(--dark-green));
+            color: white;
+            padding: 8px 18px;
+            display: flex;
+            gap: 2px;
+            align-items: center;
+            font-weight: 600;
+            justify-content: center;
+        }
+
+        .address-left {
+            display: flex;
+            gap: 10px;
+            align-items: center
+        }
+
+        .address-left .dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%
+        }
+
+        /* Title */
+        .title {
+            text-align: center;
+            padding: 30px 24px 8px;
+        }
+
+        .title h2 {
+            margin: 0;
+            font-size: 44px;
+            color: var(--green);
+            letter-spacing: 1px;
+        }
+
+        .title p {
+            margin: 6px 0 0;
+            font-weight: 700;
+            color: #333
+        }
+
+        /* vertical left accent text */
+        .vertical-left {
+            position: absolute;
+            left: -70px;
+            bottom: 220px;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            color: #e6f5ec;
+            font-weight: 800;
+            font-size: 34px;
+            letter-spacing: 6px;
+            pointer-events: none;
+        }
+
+        /* form container */
+        .form {
+            padding: 18px 28px 40px;
+        }
+
+        /* section heading */
+        .section-title {
+            background: var(--green);
+            color: white;
+            padding: 12px 14px;
+            font-weight: 700;
+            margin: 12px 0;
+            font-size: 18px;
+        }
+
+        .grid-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 14px;
+            min-width: 150px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        select,
+        textarea {
+            border: 2px solid transparent;
+            border-bottom: 2px solid var(--field-border);
+            padding: 8px 10px;
+            min-height: 34px;
+            font-size: 14px;
+            outline: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        .line-input {
+            display: flex;
+            flex: 1;
+        }
+
+        .full-line {
+            width: 100%
+        }
+
+        .col-2 {
+            flex: 1;
+            min-width: 220px
+        }
+
+        /* checkbox group style */
+        .checkbox-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 8px 0;
+        }
+
+        .checkbox-row label {
+            font-weight: 500;
+            color: #123;
+            min-width: auto
+        }
+
+        .checkbox {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            padding: 6px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(11, 155, 81, 0.08);
+        }
+
+        /* table-like box for faith section */
+        .box {
+            border: 2px solid #e8f5ec;
+            padding: 12px;
+            border-left: 6px solid #dff3e6;
+            margin-top: 8px;
+        }
+
+        /* skills table */
+        .fields {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 12px 18px;
+            align-items: start;
+            margin-top: 8px;
+        }
+
+        .fields .field-label {
+            font-weight: 700;
+            padding-top: 8px
+        }
+
+        /* footer page num */
+        .page-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 24px;
+            font-size: 12px;
+            color: #777;
+            margin-top: 14px
+        }
+
+        /* responsive */
+        @media (max-width:820px) {
+            .brand h1 {
+                font-size: 22px
+            }
+
+            .title h2 {
+                font-size: 34px
+            }
+
+            .vertical-left {
+                display: none
+            }
+
+            .fields {
+                grid-template-columns: 1fr
+            }
+
+            label {
+                min-width: 120px
+            }
+        }
+
+        /* subtle helpers to mimic outlined input boxes in image */
+        .underline-box {
+            border: 2px solid var(--field-border);
+            padding: 8px;
+            border-radius: 4px;
+            background: transparent;
+        }
+
+        textarea {
+            min-height: 64px;
+            resize: vertical
+        }
+
+        .other-input {
+            border-bottom: 2px dashed var(--field-border);
+            padding: 6px 8px
+        }
+
+
+
+        .section-title {
+            background: #0b9b51;
+            color: #fff;
+            font-weight: bold;
+            padding: 8px 12px;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #0b9b51;
+        }
+
+        th {
+            background: #f9fdfb;
+            text-align: left;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            width: 30%;
+        }
+
+        td {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .checkbox {
+            margin-right: 10px;
+
+        }
+
+        input[type="text"] {
+            width: 100%;
+            border: 1px solid #0b9b51;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+
+        textarea {
+            width: 100%;
+            border: 1px solid var(--field-border);
+            padding: 6px;
+            font-size: 14px;
+            min-height: 80px;
+        }
+
+        input[type="text"] {
+            border: 1px solid var(--field-border);
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .checkbox {
+            margin-right: 12px;
+        }
+
+        .attachments {
+            padding: 12px;
+            font-size: 15px;
+        }
+
+        .attachments div {
+            margin: 8px 0;
+        }
+
+        .attachments input {
+            margin-right: 8px;
+        }
+
+        .declaration {
+            padding: 14px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            background: var(--green);
+            color: #fff;
+            padding: 10px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: not-allowed;
+            /* Disabled by default */
+            margin: 20px 0;
+            border-radius: 4px;
+            opacity: 70%;
+        }
+
+        .submit-btn.enabled {
+            cursor: pointer;
+            background-color: var(--green);
+            opacity: 100%;
+        }
+
+        .submit-btn:hover.enabled {
+            background: #097f40;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page" role="document">
+        <div class="topbar" aria-hidden="false">
+            <div class="brand" role="banner">
+                <div class="logo"><img style="height: 90px; width: auto; margin-left: 250px;" src="logo.png"
+                        alt="Logo" /></div>
+                <!-- <div>
+        <h1>USWAYE NABAWI</h1>
+        <div class="sub">FOUNDATION</div>
+      </div> -->
+            </div>
+
+            <div class="contact" aria-label="contact">
+                <div>
+                    <a href="https://unfbd.org" target="_blank">unfbd.org<img src="web.png" alt="Website" /></a>
+                </div>
+                <div>
+                    <a href="mailto:admin@unfbd.org">admin@unfbd.org<img src="mail.png" alt="Email" /></a>
+                </div>
+                <div>
+                    <a href="https://www.facebook.com/unfbdorg" target="_blank">unfbdorg<img
+                            src="facebook-02-Stroke-Rounded.png" alt="Facebook" /></a>
+                </div>
+                <div>
+                    <a href="https://www.instagram.com/unfbd" target="_blank">@unfbd<img
+                            src="instagram-Stroke-Rounded.png" alt="Instagram" /></a>
+                </div>
+                <div>
+                    <a href="https://www.youtube.com/@UNFbd" target="_blank">@UNFbd<img
+                            src="youtube-Stroke-Rounded.png" alt="YouTube" /></a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="address-bar">
+            <div class="address-left">
+                <img style="height: 22px; width: auto;   filter: brightness(0) saturate(100%) invert(65%) sepia(84%) saturate(597%) hue-rotate(360deg) brightness(97%) contrast(94%);
+ " src="location-04-Stroke-Rounded.png" alt="Logo" />
+                <h4 style="margin-right: 40px;">JALESWARITOLA, BOGURA, BANGLADESH, 5800</h3>
+            </div>
+            <img style="height: 22px; width: auto;   filter: brightness(0) saturate(100%) invert(65%) sepia(84%) saturate(597%) hue-rotate(360deg) brightness(97%) contrast(94%);
+ " src="call-02-Stroke-Rounded.png" alt="Logo" />
+            <div style="font-size:16px;">+880 1719-466455</div>
+        </div>
+
+        <div class="title">
+            <h2>MEMBERSHIP APPLICATION FORM</h2>
+            <p>FOLLOWING THE SUNNAH IN SERVICE, SINCERITY, AND COMMUNITY</p>
+        </div>
+
+        <div class="vertical-left"><span>USWAYE NABAWI</span><br><span
+                style="color: #f8a623; opacity: .1; letter-spacing: 16.3px; "> FOUNDATION</span></div>
+
+        <div class="form" role="form" aria-labelledby="formtitle">
+
+            <!-- 1. personal -->
+            <div class="section-title">1. PERSONAL INFORMATION</div>
+
+            <div class="grid-row">
+                <label for="fullname">Full Name</label>
+                <div class="line-input full-line">
+                    <input id="fullname" type="text" placeholder="Enter full name" />
+                </div>
+            </div>
+
+            <div class="grid-row">
+                <label for="father">Father's/Husband's Name</label>
+                <div class="line-input full-line">
+                    <input id="father" type="text" placeholder="Father's or Husband's name" />
+                </div>
+            </div>
+
+            <div class="grid-row">
+                <label for="dob">Date of Birth</label>
+                <div style="display:flex;gap:12px;flex:1;min-width:240px">
+                    <input id="dob" type="date" style="max-width:240px" />
+                    <div style="display:flex;align-items:center;gap:8px;margin-left:6px">
+                        <label class="checkbox"><input type="radio" name="gender" /> Male</label>
+                        <label class="checkbox"><input type="radio" name="gender" /> Female</label>
+                        <label class="checkbox"><input type="radio" name="gender" /> Other</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-row">
+                <label for="nationality">Nationality</label>
+                <div class="line-input col-2"><input id="nationality" type="text" placeholder="Nationality" /></div>
+
+                <label for="nid" style="min-width:130px">NID/Birth Certificate No.</label>
+                <div class="line-input col-2"><input id="nid" type="text" placeholder="NID or birth certificate no." />
+                </div>
+            </div>
+
+            <div class="grid-row">
+                <label for="phone">Phone Number</label>
+                <div class="line-input col-2"><input id="phone" type="text" placeholder="+8801XXXXXXXXX" /></div>
+
+                <label for="email" style="min-width:120px">Email Address</label>
+                <div class="line-input col-2"><input id="email" type="email" placeholder="you@example.com" /></div>
+            </div>
+
+            <div class="grid-row">
+                <label for="present">Present Address</label>
+                <div class="line-input full-line"><textarea id="present" placeholder="Present address"></textarea></div>
+            </div>
+
+            <div class="grid-row">
+                <label for="permanent">Permanent Address</label>
+                <div class="line-input full-line"><textarea id="permanent" placeholder="Permanent address"></textarea>
+                </div>
+            </div>
+
+            <!-- 2. faith -->
+            <div class="section-title">2. FAITH & MISSION ALIGNMENT</div>
+            <table>
+                <tr>
+                    <th>QUESTION</th>
+                    <th>RESPONSE</th>
+                </tr>
+                <tr>
+                    <td>Are you a practicing Muslim?</td>
+                    <td>
+                        <label class="checkbox"><input type="radio" name="muslim"> Yes</label>
+                        <label class="checkbox"><input type="radio" name="muslim"> No</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Do you agree to uphold the mission and values of the Foundation?</td>
+                    <td>
+                        <label class="checkbox"><input type="radio" name="agree"> Yes</label>
+                        <label class="checkbox"><input type="radio" name="agree"> No</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Preferred area of contribution</td>
+                    <td>
+                        <label class="checkbox"><input type="checkbox"> Dawah</label>
+                        <label class="checkbox"><input type="checkbox"> Media</label>
+                        <label class="checkbox"><input type="checkbox"> Admin</label>
+                        <label class="checkbox"><input type="checkbox"> Fundraising</label>
+                        <br>
+                        <label class="checkbox"><input type="checkbox"> Other: <input type="text"
+                                style="width:60% "></label>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Section 3 -->
+            <div class="section-title">3. SKILLS & BACKGROUND</div>
+            <table>
+                <tr>
+                    <th>FIELD</th>
+                    <th>DETAILS TO FILL IN</th>
+                </tr>
+                <tr>
+                    <td>Educational Qualification</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Current Occupation</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Relevant Skills/Experience</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Languages Spoken</td>
+                    <td><input type="text"></td>
+                </tr>
+            </table>
+
+
+            <!-- Section 4 -->
+            <div class="section-title">4. COMMITMENT & MOTIVATION</div>
+            <div style="padding:12px; border:1px solid var(--green); border-top:1px solid var(--green);">
+                <label>• Why do you want to join Uswaye Nabawi Foundation?<br>
+                    <small>(Write a short paragraph or bullet points)</small></label><br>
+                <textarea></textarea><br><br>
+
+                • Weekly time commitment: <input type="text" style="width:120px"> hours.<br><br>
+
+                • Willing to attend meetings/trainings?
+                <label class="checkbox"><input type="radio" name="training"> Yes</label>
+                <label class="checkbox"><input type="radio" name="training"> No</label>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="section-title">5. ATTACHMENTS</div>
+            <div class="attachments" style="border:1px solid var(--green); border-top:1px solid var(--green);">
+                <div><label><input type="checkbox"> Copy of NID/Birth Certificate</label></div>
+                <div><label><input type="checkbox"> Passport-size Photo</label></div>
+                <div><label><input type="checkbox"> CV or Bio (optional)</label></div>
+            </div>
+
+            <!-- Section 6 -->
+            <div class="section-title">6. DECLARATION</div>
+            <div class="declaration" style="border:1px solid var(--green); border-top:1px solid var(--green);">
+                I declare that the information provided is true and complete.
+                I understand that membership is subject to approval and may be revoked if I act against the principles
+                of the Uswaye Nabawi Foundation.
+                <br><br>
+                <label><input type="checkbox" id="agree"> I agree to the declaration above.</label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn" id="submitBtn" disabled>Submit Application</button>
+
+            <script>
+                const checkbox = document.getElementById('agree');
+                const submitBtn = document.getElementById('submitBtn');
+
+                checkbox.addEventListener('change', function () {
+                    if (this.checked) {
+                        submitBtn.disabled = false;
+                        submitBtn.classList.add('enabled');
+                    } else {
+                        submitBtn.disabled = true;
+                        submitBtn.classList.remove('enabled');
+                    }
+                });
+            </script>
+
+
+
+            <script>
+                // Tiny JS: toggle checkbox visualization (optional / decorative)
+                document.querySelectorAll('input[type="checkbox"]').forEach(r => {
+                    r.addEventListener('change', e => {
+                        // no-op decorative; left for future behaviour
+                    });
+                });
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    const dateInput = document.getElementById('dob');
+
+                    dateInput.addEventListener('change', (event) => {
+                        const inputDate = new Date(event.target.value);
+                        if (!isNaN(inputDate)) {
+                            const formattedDate = inputDate.toLocaleDateString('en-GB', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric'
+                            });
+                            event.target.value = formattedDate.split('/').reverse().join('-'); // Keep ISO format for input value
+                            alert(`Selected Date: ${formattedDate}`); // Display formatted date
+                        }
+                    });
+                });
+            </script>
+
+</body>
+
+</html>
